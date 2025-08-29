@@ -1,0 +1,1 @@
+{ "extends": "@acme/config/tsconfig", "compilerOptions": { "emitDeclarationOnly": false } }

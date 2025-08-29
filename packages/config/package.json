@@ -1,0 +1,11 @@
+{
+  "name": "@acme/config",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./eslint": "./eslint.config.js",
+    "./prettier": "./prettier.config.json",
+    "./tsconfig": "./tsconfig.base.json",
+    "./tailwind": "./tailwind.preset.js"
+  }
+}

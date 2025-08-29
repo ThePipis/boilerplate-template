@@ -1,0 +1,8 @@
+node_modules
+.turbo
+.env
+.env.*
+supabase/.temp
+supabase/.branches
+pnpm-lock.yaml
+.DS_Store

@@ -1,0 +1,17 @@
+{
+  "name": "@acme/db",
+  "version": "0.0.0",
+  "private": true,
+  "prisma": { "schema": "prisma/schema.prisma" },
+  "scripts": {
+    "generate": "prisma generate",
+    "migrate:dev": "prisma migrate dev",
+    "seed": "node prisma/seed.cjs"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.19.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.19.0"
+  }
+}
