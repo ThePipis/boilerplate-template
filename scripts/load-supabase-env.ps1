@@ -8,7 +8,7 @@ param(
   [string]$ProjectRoot = (Get-Location).Path,
   [string]$HostAddr    = "127.0.0.1",
   [string]$PgUser      = "postgres",
-  [SecureString]$PgPassword = (ConvertTo-SecureString "postgres" -AsPlainText -Force),
+  [string]$PgPassword = "postgres",
   # Nota: string a propósito (local). Si quieres SecureString, lo cambiamos.
   [string]$PgDatabase  = "postgres",
   [switch]$Persist                      # Si se pasa, también guarda con setx (próximas sesiones).
@@ -38,7 +38,7 @@ if (Test-Path $cfgPath) {
 
 # --- 2) Secrets (JSON) ---
 try {
-  $secretsJson = supabase secrets list --json 2>$null
+  $secretsJson = supabase secrets list --local -o json 2>$null
   if (-not $secretsJson) { Fail "No se pudieron leer secretos. ¿Ejecutaste 'supabase start' en este proyecto?" }
   $secrets = $secretsJson | ConvertFrom-Json
 } catch { Fail "Fallo al convertir secretos JSON. Salida: $secretsJson" }
@@ -50,10 +50,6 @@ $anon   = Get-Secret "SUPABASE_ANON_KEY"
 $svcKey = Get-Secret "SUPABASE_SERVICE_ROLE_KEY"
 if (-not $anon -or -not $svcKey) { Fail "Faltan claves: SUPABASE_ANON_KEY o SUPABASE_SERVICE_ROLE_KEY." }
 
-# Convertir SecureString -> texto para variables de entorno/URL (solo uso local)
-$PgPasswordPlain = [Runtime.InteropServices.Marshal]::PtrToStringUni(
-  [Runtime.InteropServices.Marshal]::SecureStringToBSTR($PgPassword)
-)
 
 # --- 3) Exportar a la SESIÓN ACTUAL ---
 $env:SUPABASE_URL              = "http://$($HostAddr):$($apiPort)"
@@ -63,9 +59,9 @@ $env:SUPABASE_SERVICE_ROLE_KEY = $svcKey
 $env:PGHOST     = $HostAddr
 $env:PGPORT     = "$dbPort"
 $env:PGUSER     = $PgUser
-$env:PGPASSWORD = $PgPasswordPlain
+$env:PGPASSWORD = $PgPassword
 $env:PGDATABASE = $PgDatabase
-$env:DATABASE_URL= "postgresql://$($PgUser):$($PgPasswordPlain)@$($HostAddr):$($dbPort)/$($PgDatabase)"
+$env:DATABASE_URL= "postgresql://$($PgUser):$($PgPassword)@$($HostAddr):$($dbPort)/$($PgDatabase)"
 
 # --- 4) Persistencia opcional ---
 if ($Persist) {

@@ -3,14 +3,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
-/**
- * BOILERPLATE: Modelo de ejemplo.
- * - Puedes eliminar o renombrar `Example` cuando definas tu dominio real.
- */
 model Example {
   id        String   @id @default(uuid())
   label     String

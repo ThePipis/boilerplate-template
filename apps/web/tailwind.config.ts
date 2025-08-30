@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-// Usamos JS para no requerir tipos mientras es boilerplate.
-const preset = require("../../packages/config/tailwind.preset.js");
+import type { Config } from "tailwindcss";
+const preset = require("@acme/config/tailwind.preset");
 
-module.exports = {
-  content: ["./app/**/*.{ts,tsx}"],
+export default {
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
   presets: [preset]
-};
+} satisfies Config;

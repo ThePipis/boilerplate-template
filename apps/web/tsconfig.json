@@ -1,4 +1,5 @@
 {
-  "extends": "../../packages/config/tsconfig.base.json",
-  "include": ["app", "types"]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "baseUrl": "." },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

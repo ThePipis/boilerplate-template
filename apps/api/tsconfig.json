@@ -1,1 +1,5 @@
-{ "extends": "@acme/config/tsconfig", "compilerOptions": { "emitDeclarationOnly": false } }
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": { "outDir": "dist", "baseUrl": "." },
+  "include": ["src/**/*.ts"]
+}

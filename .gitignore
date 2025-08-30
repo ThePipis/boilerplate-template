@@ -1,8 +1,24 @@
+# Node/PNPM/Turbo
 node_modules
+.pnp*
+.pnpm-store
 .turbo
+.next
+dist
+build
+coverage
+
+# Env & secrets
 .env
 .env.*
+!.env.example
+
+# Supabase local
 supabase/.temp
 supabase/.branches
-pnpm-lock.yaml
+
+# OS/IDE
 .DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json
